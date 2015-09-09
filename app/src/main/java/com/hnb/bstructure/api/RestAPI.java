@@ -1,9 +1,5 @@
 package com.hnb.bstructure.api;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-
 import com.hnb.bstructure.model.Product;
 
 import java.util.Collection;
@@ -15,7 +11,12 @@ import java.util.List;
 public class RestAPI
 {
 
-    interface ProductListCallback
+    public RestAPI()
+    {
+    }
+
+
+    public interface ProductListCallback
     {
         void onLoaded(Collection<Product> collection);
 
@@ -23,7 +24,7 @@ public class RestAPI
     }
 
 
-    interface ProductDetailCallback
+    public interface ProductDetailCallback
     {
         void onLoaded(Product product);
 
@@ -59,7 +60,7 @@ public class RestAPI
     }
 
 
-    public void getUserById(final int userId, final ProductDetailCallback callback)
+    public void getUserById(final String userId, final ProductDetailCallback callback)
     {
         if (callback == null)
         {

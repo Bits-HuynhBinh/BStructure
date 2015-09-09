@@ -71,4 +71,10 @@ public class Product
     {
         this.brand = brand;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Product:\n" + this.getId() + "\n" + this.getName() + "\n" + this.getDescription() + "\n" + this.getPrice() + "\n\n";
+    }
 }

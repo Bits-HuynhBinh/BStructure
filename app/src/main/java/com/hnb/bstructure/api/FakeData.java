@@ -63,7 +63,7 @@ public class FakeData
         product.setDescription("Mac book air description......");
         product.setPrice(1000.00);
         product.setBrand("Apple");
-        return product;s
+        return product;
 
 
     }

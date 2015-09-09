@@ -1,5 +1,6 @@
 package com.hnb.bstructure.api;
 
+import com.hnb.bstructure.datastore.IDataStore;
 import com.hnb.bstructure.model.Product;
 
 import java.util.Collection;
@@ -16,23 +17,35 @@ public class RestAPI
     }
 
 
-    public interface ProductListCallback
+    public void insertProduct(Product product, IRestApi.InsertProductDetailCallback callback)
     {
-        void onLoaded(Collection<Product> collection);
+        if (callback == null)
+        {
+            throw new IllegalArgumentException("Callback cannot be null!!!");
+        }
 
-        void onError(Exception exception);
+        if (isThereInternetConnection())
+        {
+            try
+            {
+                FakeData.insertProduct(product);
+                callback.onSuccess(product);
+            }
+            catch (Exception ex)
+            {
+                callback.onError(ex);
+            }
+        }
+        else
+        {
+            callback.onError(new Exception());
+
+        }
+
     }
 
 
-    public interface ProductDetailCallback
-    {
-        void onLoaded(Product product);
-
-        void onError(Exception exception);
-    }
-
-
-    public void getProductList(ProductListCallback callback)
+    public void getProductList(IRestApi.ProductListCallback callback)
     {
         if (callback == null)
         {
@@ -60,7 +73,7 @@ public class RestAPI
     }
 
 
-    public void getUserById(final String userId, final ProductDetailCallback callback)
+    public void getUserById(final String userId, final IRestApi.ProductDetailCallback callback)
     {
         if (callback == null)
         {

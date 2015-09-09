@@ -1,8 +1,8 @@
 package com.hnb.bstructure.repository;
 
-import com.hnb.bstructure.cloudcontroller.ProductCloudDataStore;
-import com.hnb.bstructure.data.IProductDataStore;
-import com.hnb.bstructure.dbcontroller.ProductDBDataStore;
+import com.hnb.bstructure.datastore.APIWrapper;
+import com.hnb.bstructure.datastore.IDataStore;
+import com.hnb.bstructure.datastore.DBDataStore;
 import com.hnb.bstructure.model.Product;
 
 import java.util.Collection;
@@ -47,8 +47,8 @@ public class ProductRepository
 
         if (isCached)
         {
-            ProductCloudDataStore productCloudDataStore = new ProductCloudDataStore();
-            productCloudDataStore.getProductList(new ProductCloudDataStore.ProductListCallback()
+            APIWrapper productAPIWrapper = new APIWrapper();
+            productAPIWrapper.getProductList(new APIWrapper.ProductListCallback()
             {
                 @Override
                 public void onLoaded(Collection<Product> collection)
@@ -65,8 +65,8 @@ public class ProductRepository
         }
         else
         {
-            ProductDBDataStore productDBDataStore = new ProductDBDataStore();
-            productDBDataStore.getProductList(new IProductDataStore.ProductListCallback()
+            DBDataStore productDBDataStore = new DBDataStore();
+            productDBDataStore.getProductList(new IDataStore.ProductListCallback()
             {
                 @Override
                 public void onLoaded(Collection<Product> collection)
@@ -91,8 +91,8 @@ public class ProductRepository
         boolean isCached = true;
         if (isCached)
         {
-            ProductCloudDataStore productCloudDataStore = new ProductCloudDataStore();
-            productCloudDataStore.getProduct(id, new IProductDataStore.ProductDetailCallback()
+            APIWrapper productAPIWrapper = new APIWrapper();
+            productAPIWrapper.getProduct(id, new IDataStore.ProductDetailCallback()
             {
                 @Override
                 public void onLoaded(Product product)
@@ -111,8 +111,8 @@ public class ProductRepository
         else
         {
 
-            ProductDBDataStore productDBDataStore = new ProductDBDataStore();
-            productDBDataStore.getProduct(id, new IProductDataStore.ProductDetailCallback()
+            DBDataStore productDBDataStore = new DBDataStore();
+            productDBDataStore.getProduct(id, new IDataStore.ProductDetailCallback()
             {
                 @Override
                 public void onLoaded(Product product)

@@ -68,4 +68,9 @@ public class FakeData
 
     }
 
+    public static void insertProduct(Product product)
+    {
+
+    }
+
 }

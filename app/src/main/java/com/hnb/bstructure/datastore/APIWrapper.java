@@ -1,7 +1,8 @@
-package com.hnb.bstructure.cloudcontroller;
+package com.hnb.bstructure.datastore;
 
+import com.hnb.bstructure.api.IRestApi;
 import com.hnb.bstructure.api.RestAPI;
-import com.hnb.bstructure.data.IProductDataStore;
+import com.hnb.bstructure.datastore.IDataStore;
 import com.hnb.bstructure.model.Product;
 
 import java.util.Collection;
@@ -9,19 +10,19 @@ import java.util.Collection;
 /**
  * Created by USER on 9/9/2015.
  */
-public class ProductCloudDataStore implements IProductDataStore
+public class APIWrapper implements IDataStore
 {
 
     RestAPI restAPI;
 
-    public ProductCloudDataStore()
+    public APIWrapper()
     {
         restAPI = new RestAPI();
     }
 
     public void getProductList(final ProductListCallback callback)
     {
-        restAPI.getProductList(new RestAPI.ProductListCallback()
+        restAPI.getProductList(new IRestApi.ProductListCallback()
         {
             @Override
             public void onLoaded(Collection<Product> collection)
@@ -41,7 +42,7 @@ public class ProductCloudDataStore implements IProductDataStore
 
     public void getProduct(String id, final ProductDetailCallback callback)
     {
-        restAPI.getUserById(id, new RestAPI.ProductDetailCallback()
+        restAPI.getUserById(id, new IRestApi.ProductDetailCallback()
         {
             @Override
             public void onLoaded(Product product)
@@ -56,6 +57,11 @@ public class ProductCloudDataStore implements IProductDataStore
                 callback.onError(exception);
             }
         });
+
+    }
+
+    public  void insertProduct(Product product, InsertProductDetailCallback callback)
+    {
 
     }
 

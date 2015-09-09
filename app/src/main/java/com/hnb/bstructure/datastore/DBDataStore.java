@@ -1,7 +1,8 @@
-package com.hnb.bstructure.dbcontroller;
+package com.hnb.bstructure.datastore;
 
 import com.hnb.bstructure.api.FakeData;
-import com.hnb.bstructure.data.IProductDataStore;
+import com.hnb.bstructure.daocontroller.ProductController;
+import com.hnb.bstructure.datastore.IDataStore;
 import com.hnb.bstructure.model.Product;
 
 import java.util.List;
@@ -9,10 +10,10 @@ import java.util.List;
 /**
  * Created by USER on 9/9/2015.
  */
-public class ProductDBDataStore implements IProductDataStore
+public class DBDataStore implements IDataStore
 {
 
-    public ProductDBDataStore()
+    public DBDataStore()
     {
 
     }
@@ -57,6 +58,21 @@ public class ProductDBDataStore implements IProductDataStore
         catch (Exception ex)
         {
             callback.onError(new Exception());
+        }
+    }
+
+
+    public void insertProduct(Product product, InsertProductDetailCallback callback)
+    {
+        try
+        {
+            ProductController.insertProduct(product);
+            callback.onSuccess(product);
+        }
+        catch (Exception ex)
+        {
+            callback.onError(ex);
+
         }
     }
 }
